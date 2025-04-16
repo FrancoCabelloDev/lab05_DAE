@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.db.models import Avg
 from .models import Director, Actor, Genre, Movie, MovieActor, UserProfile, Rating
+from .utils import create_recommendation_admin_action
 
 
 class RuntimeFilter(admin.SimpleListFilter):
@@ -143,6 +144,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'favorite_genre_count', 'rating_count')
     search_fields = ('user__username',)
     filter_horizontal = ('favorite_genres', 'favorite_movies')
+    actions = [create_recommendation_admin_action()]
     
     def favorite_genre_count(self, obj):
         """Count favorite genres"""
